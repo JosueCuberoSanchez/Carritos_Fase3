@@ -1,6 +1,9 @@
 package ucr.ac.cr.ci1320.router;
 
 import javafx.util.Pair;
+import ucr.ac.cr.ci1320.router.Client;
+import ucr.ac.cr.ci1320.router.IpData;
+import ucr.ac.cr.ci1320.router.Server;
 import ucr.ac.cr.ci1320.router.threads.DispatcherThread;
 import ucr.ac.cr.ci1320.router.threads.ReadThread;
 
