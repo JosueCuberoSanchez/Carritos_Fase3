@@ -21,13 +21,14 @@ import java.util.Map;
  * Brenes Solano Silvia B41133
  * Cubero Sánchez Josué B42190
  */
-public class Controller {
+public class RouterController {
     private Map<String,String> oneToOneRelation;
     private String myIpAddress;
     private String myPhysicalAddress;
     private Map<String, IpData> ipTable;
+    private int interfaces;
 
-    public Controller(){
+    public RouterController(int interfaces){
         this.oneToOneRelation = new HashMap<String,String>();
         this.oneToOneRelation.put("165.8.0.6","CRR6");//josue
         this.oneToOneRelation.put("165.8.0.48","CRR2"); //mariana
@@ -35,6 +36,7 @@ public class Controller {
         this.myIpAddress = "165.8.25.6";
         this.myPhysicalAddress = "CRR4";
         this.ipTable = new HashMap<String,IpData>();
+        this.interfaces = interfaces;
     }
 
     /**
