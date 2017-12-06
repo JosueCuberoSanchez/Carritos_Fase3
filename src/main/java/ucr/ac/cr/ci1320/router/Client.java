@@ -22,36 +22,28 @@ import java.util.Map;
  */
 
 public class Client extends Connection {
-
-    private Pair<String,String> addressPair;
-    private Map<String, String> relation;
-    private int dispatcherPort;
-    private String dispatcherRealIp;
+    private int host;
+    private int interfaces;
     private Map<String, IpData> ipTable;
 
-    public  Client(Pair<String,String> pair, Map<String, String> relation,Map<String,IpData> ipTable) throws IOException {
-        this.addressPair = pair;
-        this.relation = relation;
+    public Client (Map<String, IpData> ipTable, int interfaces, int host){
         this.ipTable = ipTable;
-    }
-
-    public Client (String realIp, Map<String, IpData> ipTable){
-        this.ipTable = ipTable;
-        this.dispatcherPort = 9999;
-        this.dispatcherRealIp = realIp;
+        this.interfaces = interfaces;
+        this.host = host;
     }
 
     /**
      * Is used when the router has to send a message to the dispatcher asking for the routing table.
-     * @param myRealIp  Corresponds to the real IP of the computer where teh router is running so the Dispatcher can send the answer.
-     * @param address This pair contains the fake IP address with the physical address.
      * @param port It corresponds the port where the router is listening so the Dispatcher can send the answer.
      */
-    public void dispatcherClient(String myRealIp, Pair<String, String> address, int port) {
+    public void dispatcherClient(int port) {
         String newMessage;
-        newMessage = "1" + "\n " + address.getKey() + "\n" + myRealIp + "\n" + address.getValue() + "\n" + port;
+        //[0] = 1 para router // 0 para terminal --- #de interfaces --- ip --- puerto
+        newMessage = "1" + "\n" + String.valueOf(this.interfaces) + "\n" +
+                String.valueOf(this.host) + "\n" + "localhost" + "\n" +
+                String.valueOf(this.host+5000);
         try {
-            super.createSocket("client", this.dispatcherPort, this.dispatcherRealIp);
+            super.createSocket("client", 9999, "localhost"); //Cambiar a IP real
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
             this.outServer.writeUTF(newMessage);
             this.cs.close();
@@ -64,7 +56,7 @@ public class Client extends Connection {
      * Used when the router gets a message, checks the receiver and take action depending on it.
      * @param message Corresponds to the message send by the user or the other network the router is connected to.
      */
-    public void startClient(String message){
+    /*public void startClient(String message){
         try {
             String[] arrayMessage = message.split("\n");
             int action = Integer.parseInt(arrayMessage[2]);
@@ -99,17 +91,17 @@ public class Client extends Connection {
                         super.createSocket("client", 7575, "10.1.131.90"); //cambiar a ipMariana
                     } else {
                         if(arrayMessage[0].contains("165")){ //se lo mando a pablo
-                            answerMessage = this.addressPair.getKey() + "\n" + "25.0.0.8"/*cambiar creo*/ + arrayMessage[2] +
+                            answerMessage = this.addressPair.getKey() + "\n" + "25.0.0.8"*//*cambiar creo*//* + arrayMessage[2] +
                                     "\n" + arrayMessage[3] + "\n" + arrayMessage[4]; //el mensaje va hacia ellos
                             System.out.println("conexion con Pablo");
                             super.createSocket("client", 7777 , "localhost");
                         } else {
                             if(this.ipTable.get(arrayMessage[1]).equals("CRR2")){//Para mariana
-                                answerMessage = this.addressPair.getKey() + "\n" + "165.8.0.48"/*cambiar creo*/ + arrayMessage[2] +
+                                answerMessage = this.addressPair.getKey() + "\n" + "165.8.0.48"*//*cambiar creo*//* + arrayMessage[2] +
                                         "\n" + arrayMessage[3] + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
                                 super.createSocket("client", 7575, "10.1.131.90");
                             } else { //para josue
-                                answerMessage = this.addressPair.getKey() + "\n" + "165.8.0.6"/*cambiar creo*/ + arrayMessage[2] +
+                                answerMessage = this.addressPair.getKey() + "\n" + "165.8.0.6"*//*cambiar creo*//* + arrayMessage[2] +
                                         "\n" + arrayMessage[3] + "\n" + arrayMessage[4] + "\n" + arrayMessage[5];
                                 super.createSocket("client", 7777, "10.1.130.222");
                             }
@@ -125,5 +117,5 @@ public class Client extends Connection {
         catch (Exception e){
             System.out.println(e.getMessage());
         }
-    }
+    }*/
 }
