@@ -34,9 +34,8 @@ public class Client extends Connection {
 
     /**
      * Is used when the router has to send a message to the dispatcher asking for the routing table.
-     * @param port It corresponds the port where the router is listening so the Dispatcher can send the answer.
      */
-    public void dispatcherClient(int port) {
+    public void dispatcherClient() {
         String newMessage;
         //[0] = 1 para router // 0 para terminal --- #de interfaces --- ip --- puerto
         newMessage = "1" + "\n" + String.valueOf(this.interfaces) + "\n" +

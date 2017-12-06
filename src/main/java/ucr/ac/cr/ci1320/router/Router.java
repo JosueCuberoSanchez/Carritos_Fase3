@@ -58,6 +58,6 @@ public class Router implements Runnable{
     private void connectToDispatcher(){
         Client client = new Client(this.ipTable, this.interfaces, this.host);
         //digamos que la dir fisica es el host
-        client.dispatcherClient(this.host+5000);
+        client.dispatcherClient();
     }
 }
