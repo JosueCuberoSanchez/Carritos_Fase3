@@ -19,7 +19,7 @@ import java.util.HashMap;
  * Cubero Sánchez Josué B42190
  */
 public class Client extends ucr.ac.cr.ci1320.TerminalNode.Connection.Connection {
-    private String dispatcherRealIp = "127.0.0.1"; //TODO change to real ip
+    private String dispatcherRealIp = "10.1.30.222"; //TODO change to real ip
     private int dispatcherPort;
     private String myIp;
     private HashMap<String, NodeData> nodeDataTable;
