@@ -27,9 +27,9 @@ public class Client extends Connection {
      */
     public void dispatcherClient(int interfacesQuantity, int host, String myRealIp, int port) {
         String newMessage;
-        newMessage = "1" + "," + Integer.toString(interfacesQuantity)+ "," + Integer.toString(host)+ "," +  myRealIp+ "," + Integer.toString(port);
+        newMessage = "1" + "\n" + Integer.toString(interfacesQuantity)+ "\n" + Integer.toString(host)+ "\n" +  myRealIp+ "\n" + Integer.toString(port);
         try {
-            super.createSocket("client", 9999, "localhost"); //Cambiar a IP real
+            super.createSocket("client", 9999, "10.1.130.222"); //Cambiar a IP real
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
             this.outServer.writeUTF(newMessage);
             this.cs.close();

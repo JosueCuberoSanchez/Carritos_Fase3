@@ -46,12 +46,17 @@ public class Router implements Runnable{
      * @throws IOException
      */
    public void startController() {
-        Thread dispatcherThread = new Thread(new DispatcherThread(new Server(this.ARPTable, this.routingTable),this.hostNumber+5000));
-        dispatcherThread.start();
-        this.connectToDispatcher();
-        Thread readThread = new Thread (new ReadThread(new Server(), hostNumber+8000));
-        readThread.start();
-    }
+       Thread dispatcherThread = new Thread(new DispatcherThread(new Server(this.ARPTable, this.routingTable), 7777));
+       dispatcherThread.start();
+       this.connectToDispatcher();
+       Interface newInterface;
+       for (Map.Entry<String, Interface> entry : this.ARPTable.entrySet()) {
+           newInterface = entry.getValue();
+           Thread readThread = new Thread(new ReadThread(new Server(), newInterface.getPort()));
+           readThread.start();
+       }
+   }
+
 
     /**
      * Starts the communication with the dispatcher.
