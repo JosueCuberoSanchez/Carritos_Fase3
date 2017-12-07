@@ -47,9 +47,10 @@ public class Client extends Connection {
         String newMessage;
         try {
             newMessage = values[1] + destinyInterface.getExternInterface() + values[2];
-            super.createSocket("client", destinyInterface.getPort(), "localhost"  /*destinyInterface.getExternIp()*/); //Cambiar a IP real
+            super.createSocket("client", destinyInterface.getPort(), destinyInterface.getExternIp()); //Cambiar a IP real
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
             this.outServer.writeUTF(newMessage);
+            System.out.println("envie el mensaje");
             this.cs.close();
         } catch (IOException e) {
             e.printStackTrace();

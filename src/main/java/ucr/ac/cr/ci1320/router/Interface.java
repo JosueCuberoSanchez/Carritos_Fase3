@@ -24,15 +24,15 @@ public class Interface {
     }
 
     public String getExternInterface() {
-        return externInterface;
+        return this.externInterface;
     }
 
     public String getExternIp() {
-        return externIp;
+        return this.externIp;
     }
 
     public int getPort() {
-        return port;
+        return this.port;
     }
 }
 

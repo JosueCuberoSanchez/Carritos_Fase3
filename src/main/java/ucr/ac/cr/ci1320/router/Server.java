@@ -1,6 +1,7 @@
 package ucr.ac.cr.ci1320.router;
 import ucr.ac.cr.ci1320.connection.Connection;
 import java.io.*;
+import java.util.HashMap;
 import java.util.Map;
 /**
  * Universidad de Costa Rica
@@ -27,7 +28,10 @@ public class Server extends Connection {
         this.routingTable = routingTable;
     }
 
-    public Server(){}
+    public Server(HashMap<String, Interface> ARPTable, HashMap<String, String> routingTable){
+        this.ARPTable = ARPTable;
+        this.routingTable = routingTable;
+    }
 
     /**
      * Used when a connection is made with the dispatcher, this threads stays awake waiting for a message from the dispatcher.
@@ -37,7 +41,7 @@ public class Server extends Connection {
         String newMessage = "";
         try {
             super.createSocket("server", port, "localhost"); //cambiar por IP real de Dispatcher
-            while (true) {
+            //while (true) {
                 System.out.println("\nServidor de dispatcher  esperando...");
                 this.cs = this.ss.accept();
                 System.out.println("Dispatcher mandó los datos y el router los agarró");
@@ -47,7 +51,7 @@ public class Server extends Connection {
                 String message[] = newMessage.split("-");
                 fillARPTable(message[0]);
                 fillRoutingTable(message[1]);
-            }
+            //}
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -62,6 +66,7 @@ public class Server extends Connection {
             newInterface = new Interface(mapValue[1],mapValue[2], Integer.valueOf(mapValue[3]));
             this.ARPTable.put(mapValue[0], newInterface);
         }
+        System.out.println(ARPTable.size() + "arp");
 
     }
 
@@ -72,6 +77,7 @@ public class Server extends Connection {
             mapValue = messageValues[i].split(",");
             this.routingTable.put(mapValue[0], mapValue[1]);
         }
+        System.out.println(routingTable.size() + "routing");
     }
 
     //END OF DISPATCHER METHODS.
