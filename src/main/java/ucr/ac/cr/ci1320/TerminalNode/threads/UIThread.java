@@ -1,49 +1,43 @@
-package ucr.ac.cr.ci1320.TerminalNode;
-
-import ucr.ac.cr.ci1320.TerminalNode.threads.DispatcherThread;
+package ucr.ac.cr.ci1320.TerminalNode.threads;
+import ucr.ac.cr.ci1320.TerminalNode.Controller;
+import ucr.ac.cr.ci1320.TerminalNode.Server;
 
 import javax.swing.*;
 import java.io.IOException;
 
 /**
- * Universidad de Costa Rica
- * Facultad de Ingeniería
- * Escuela de Ciencias de la Computación e Informática
- * Profesora: Gabriela Barrantes
- * Autores:
- * Abellán Jiménez Mariana B50031
- * Brenes Solano Silvia B41133
- * Cubero Sánchez Josué B42190
+ * Created by Mariana on 07/12/2017.
  */
-
-public class UserInterface {
+public class UIThread implements Runnable {
     private Controller controller;
     private String[] values;
+    private String hostNumber;
 
-    public UserInterface(Controller controller) {
+    public UIThread(Controller controller, String hostNumber) {
         this.controller = controller;
         this.values = new String[2];
+        this.hostNumber = hostNumber;
     }
 
     /**
      * Start the user interface
      */
-    public void start(String hostNumber) {
-        this.userInterface(hostNumber);
+    public void run() {
+        this.userInterface();
     }
 
     /**
      * Create the user interface where the user is capable of choosing
      * whether to send a message or receive a message.
      */
-    public void userInterface(String hostNumber) {
+    public void userInterface() {
         //create the connection with the Dispatcher
         Thread dispatcherThread = null;
         try {
             dispatcherThread = new Thread(new DispatcherThread(new Server(this.controller.getNodeDataTable())));
             dispatcherThread.start();
             //TODO CHANGE THE IP DIRECTIONS TO THE REAL ONES!
-            this.controller.connectToDispatcher("127.0.0.1", "127.0.0.1", hostNumber);
+            this.controller.connectToDispatcher("127.0.0.1", "127.0.0.1", this.hostNumber);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -53,7 +53,7 @@ public class Client extends ucr.ac.cr.ci1320.TerminalNode.Connection.Connection 
      */
     public void dispatcherClient(String myRealIp, String hostNumber, int port) {
         String newMessage;
-        newMessage = "0" + "\n" + hostNumber + "\n"+ myRealIp + "\n" + port + "\n" ;
+        newMessage = "0" + "\n" + "1" + "\n" + hostNumber + "\n"+ myRealIp + "\n" + port + "\n" ;
         try {
             this.serverOutStream = new DataOutputStream(this.clientSocket.getOutputStream());
             this.serverOutStream.writeUTF(newMessage);

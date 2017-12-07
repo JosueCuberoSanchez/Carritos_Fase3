@@ -1,5 +1,7 @@
 package ucr.ac.cr.ci1320.TerminalNode;
 
+import ucr.ac.cr.ci1320.TerminalNode.threads.UIThread;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.*;
@@ -43,7 +45,7 @@ public class Server extends ucr.ac.cr.ci1320.TerminalNode.Connection.Connection 
                 System.out.println("Received from "+clientSocket.getPort()+":\n"+ Arrays.toString((message.split(",")))+"\n");
                 String[] arrayMessage = message.split(",");
                 String answerMessage = "Se recibe:\n"+arrayMessage[2]+"\nde: "+arrayMessage[0];// 0
-                done = UserInterface.showMessage(answerMessage); //calls the method in the User Interface
+                done = UIThread.showMessage(answerMessage); //calls the method in the User Interface
             }
         }catch (IOException e){
             System.out.println(e.getMessage());
