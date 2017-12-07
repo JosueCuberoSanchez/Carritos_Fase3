@@ -1,6 +1,10 @@
 package ucr.ac.cr.ci1320.router.threads;
 
+import ucr.ac.cr.ci1320.router.Interface;
+import ucr.ac.cr.ci1320.router.Router;
 import ucr.ac.cr.ci1320.router.Server;
+
+import java.util.HashMap;
 
 /**
  * Universidad de Costa Rica
@@ -16,7 +20,8 @@ public class DispatcherThread implements Runnable {
     private Server server;
     private int port;
 
-    public DispatcherThread(Server server,int port){
+
+    public DispatcherThread(Server server, int port){
         this.server = server;
         this.port = port;
     }

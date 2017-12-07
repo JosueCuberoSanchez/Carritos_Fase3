@@ -3,10 +3,17 @@ package ucr.ac.cr.ci1320;
 import ucr.ac.cr.ci1320.router.Router;
 
 import java.util.Scanner;
-
 /**
- * Created by josue on 05/12/17.
+ * Universidad de Costa Rica
+ * Facultad de Ingeniería
+ * Escuela de Ciencias de la Computación e Informática
+ * Profesora: Gabriela Barrantes
+ * Autores:
+ * Abellán Jiménez Mariana B50031
+ * Brenes Solano Silvia B41133
+ * Cubero Sánchez Josué B42190
  */
+
 public class Controller {
     private int hosts;
 
@@ -31,7 +38,7 @@ public class Controller {
             if (interfaces == 1) { //es un nodo terminal
 
             } else {
-                Thread thread = new Thread(new Router(interfaces,i));
+                Thread thread = new Thread(new Router(interfaces,i, "localhost", 6666));
                 thread.start();
             }
         } //termina for

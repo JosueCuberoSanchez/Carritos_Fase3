@@ -15,13 +15,15 @@ import ucr.ac.cr.ci1320.router.Server;
 public class ReadThread implements Runnable{
 
     private Server server;
-    public ReadThread(Server server){
+    private int port;
+    public ReadThread(Server server, int port){
         this.server = server;
+        this.port = port;
     }
 
     public void run(){
         try {
-            this.server.startServer();
+           this.server.startServer(this.port);
         } catch(Exception e) {
             e.printStackTrace();
         }
