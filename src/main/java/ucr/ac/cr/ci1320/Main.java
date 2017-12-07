@@ -1,4 +1,5 @@
 package ucr.ac.cr.ci1320;
+import ucr.ac.cr.ci1320.TerminalNode.TNController;
 import ucr.ac.cr.ci1320.router.Router;
 
 /**
@@ -17,7 +18,10 @@ public class Main {
        // Controller controller = new Controller();
         //controller.start();
 
-        Router router = new Router(3, 1, "127.0.0.1", 7777);
-        router.startController();
+        //Router router = new Router(3, 1, "127.0.0.1", 7777);
+        //router.startController();
+
+        TNController terminalNode = new TNController(1);
+        terminalNode.startTerminalNodes();
     }
 }
