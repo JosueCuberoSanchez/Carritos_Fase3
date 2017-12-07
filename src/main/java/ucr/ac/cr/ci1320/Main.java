@@ -23,7 +23,7 @@ public class Main {
         //Router router = new Router(3, 1, "127.0.0.1", 7777);
         //router.startController();
 
-        TNController terminalNode = new TNController(1);
-        terminalNode.startTerminalNodes();
+        //TNController terminalNode = new TNController(1);
+        //terminalNode.startTerminalNodes();
     }
 }
