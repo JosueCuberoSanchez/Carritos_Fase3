@@ -37,7 +37,7 @@ public class UIThread implements Runnable {
             dispatcherThread = new Thread(new DispatcherThread(new Server(this.controller.getNodeDataTable())));
             dispatcherThread.start();
             //TODO CHANGE THE IP DIRECTIONS TO THE REAL ONES!
-            this.controller.connectToDispatcher("127.0.0.1", "127.0.0.1", this.hostNumber);
+            this.controller.connectToDispatcher("10.1.30.222", "10.1.152.70", this.hostNumber);
         } catch (IOException e) {
             e.printStackTrace();
         }
