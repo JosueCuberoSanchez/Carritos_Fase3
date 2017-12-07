@@ -17,7 +17,7 @@ public class Main {
        // Controller controller = new Controller();
         //controller.start();
 
-        Router router = new Router(3, 1, "127.0.0.1", 7777);
+        Router router = new Router(3, 1, "10.1.130.141", 7777);
         router.startController();
     }
 }
