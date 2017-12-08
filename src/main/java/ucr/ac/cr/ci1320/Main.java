@@ -1,11 +1,6 @@
 package ucr.ac.cr.ci1320;
-import ucr.ac.cr.ci1320.TerminalNode.Client;
 import ucr.ac.cr.ci1320.TerminalNode.TNController;
 import ucr.ac.cr.ci1320.router.Router;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 
 /**
  * Universidad de Costa Rica

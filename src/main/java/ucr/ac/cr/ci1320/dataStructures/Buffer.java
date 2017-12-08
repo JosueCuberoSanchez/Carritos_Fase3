@@ -12,10 +12,12 @@ package ucr.ac.cr.ci1320.dataStructures;
 public class Buffer {
     private String message;
     private Buffer nextBuffer;
+    private boolean isTaken;
 
     public Buffer(String message){
         this.message = message;
         this.nextBuffer = null;
+        this.isTaken = false;
     }
 
     public String getMessage() {
@@ -33,6 +35,18 @@ public class Buffer {
 
     public void setNextBuffer(Buffer nextBuffer){
         this.nextBuffer = nextBuffer;
+    }
+
+    public synchronized boolean isTaken() {
+        boolean temporal = this.isTaken;
+        if(!this.isTaken){
+            this.isTaken = true;
+        }
+        return temporal;
+    }
+
+    public void setTaken(boolean state){
+        this.isTaken = state;
     }
 }
 

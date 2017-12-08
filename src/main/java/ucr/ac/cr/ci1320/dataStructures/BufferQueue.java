@@ -17,6 +17,14 @@ public class BufferQueue {
         this.startBuffer = null;
     }
 
+    public boolean isEmpty(){
+        if(this.startBuffer != null){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public void printList(){
         Buffer temporal = this.startBuffer;
         while(temporal != null){
@@ -38,10 +46,11 @@ public class BufferQueue {
         }
     }
 
-    public String getNextBufferedMessage(){
+    public String getNextBufferedMessage(BufferList bufferList){ //falta agregar el nodo a la lista
         String message = null;
         if(this.startBuffer != null) {
             message = this.startBuffer.getMessage();
+            bufferList.addNode(this.startBuffer);
             this.startBuffer = this.startBuffer.getNextBuffer();
         } else {
             System.out.println("Returning null. No buffered messages found");

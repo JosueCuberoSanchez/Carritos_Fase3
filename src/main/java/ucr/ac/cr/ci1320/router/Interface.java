@@ -1,4 +1,8 @@
 package ucr.ac.cr.ci1320.router;
+
+import ucr.ac.cr.ci1320.dataStructures.BufferList;
+import ucr.ac.cr.ci1320.dataStructures.BufferQueue;
+
 /**
  * Universidad de Costa Rica
  * Facultad de Ingeniería
@@ -12,27 +16,34 @@ package ucr.ac.cr.ci1320.router;
 
 public class Interface {
 
+    private int myPort;
     private String externInterface;
     private String externIp;
-    private int port;
+    private int externPort;
 
 
-    public Interface(String externInterface, String externIp, int port) {
+
+    public Interface(String externInterface, String externIp, int externPort, int myPort) {
         this.externInterface= externInterface;
         this.externIp = externIp;
-        this.port = port;
+        this.myPort = myPort;
+        this.externPort = externPort;
     }
 
     public String getExternInterface() {
-        return externInterface;
+        return this.externInterface;
     }
 
     public String getExternIp() {
-        return externIp;
+        return this.externIp;
     }
 
-    public int getPort() {
-        return port;
+    public int getMyPort() {
+        return this.myPort;
+    }
+
+    public int getExternPort() {
+        return this.externPort;
     }
 }
 
