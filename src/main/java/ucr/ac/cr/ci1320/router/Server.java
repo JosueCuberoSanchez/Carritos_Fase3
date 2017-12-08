@@ -6,6 +6,9 @@ import ucr.ac.cr.ci1320.router.threads.QueueThread;
 
 import java.io.*;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Universidad de Costa Rica
  * Facultad de Ingeniería
@@ -97,7 +100,19 @@ public class Server extends Connection {
      * @param port corresponds to the port where the router is listening for new messages.
      */
     public void startServer(int port){
-        String newMessage = "";
+        /*PRUEBA*/
+        for(int i=0;i<3;i++) {
+            String message = "HOLA"+String.valueOf(i);
+            this.testDS(message);
+        }
+        for(int i=0;i<3;i++) {
+            if (!this.bufferQueue.isEmpty()) {
+                String test = this.bufferQueue.getNextBufferedMessage(this.bufferList);
+                System.out.println(test);
+            }
+        }
+        /*PRUEBA*/
+        /*String newMessage = "";
         try {
             super.createSocket("server", port, "localhost"); //cambiar por IP real de Dispatcher
             while (true) {
@@ -112,6 +127,13 @@ public class Server extends Connection {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }*/
+    }
+
+    /*PRUEBA*/
+    public void testDS(String message){
+        if(!this.bufferList.isEmpty()) {
+            this.bufferList.requestBuffer(message,this.bufferQueue);
         }
     }
 

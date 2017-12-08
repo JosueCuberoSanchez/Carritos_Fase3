@@ -43,22 +43,29 @@ public class BufferList {
     }
 
     public void requestBuffer(String message,BufferQueue bufferQueue){
-        Buffer temporal = this.startBuffer;
-        Buffer temporal2 = null;
-        while(temporal.getNextBuffer() != null){
-            if(!temporal.isTaken()) {
-               temporal.setMessage(message);
-               bufferQueue.addBuffer(temporal);
-               temporal2.setNextBuffer(temporal.getNextBuffer());
-            } else {
-                temporal2 = temporal;
-                temporal = temporal.getNextBuffer();
+        if(!this.startBuffer.isTaken()){ //si es el primero
+            this.startBuffer.setMessage(message);
+            bufferQueue.addBuffer(this.startBuffer);
+            this.startBuffer = this.startBuffer.getNextBuffer();
+        } else {
+            Buffer temporal = this.startBuffer.getNextBuffer();
+            Buffer temporal2 = this.startBuffer;
+            boolean continuee = true;
+            while (temporal.getNextBuffer() != null && continuee) {
+                if (!temporal.isTaken()) {
+                    temporal.setMessage(message);
+                    bufferQueue.addBuffer(temporal);
+                    temporal2.setNextBuffer(temporal.getNextBuffer());
+                    continuee = false;
+                } else {
+                    temporal2 = temporal;
+                    temporal = temporal.getNextBuffer();
+                }
+            }
+            if (temporal.getNextBuffer() == null) {
+                System.out.println("Message lost");
             }
         }
-        temporal.setNextBuffer(new Buffer(null));
-        /*este while y esta asignacion son por que al sacar el primer nodo de la lista, esta quedaria con
-         tamaño = size-1 elementos, entonces debemos agregar otro nodo vacio al final para que vuelva
-         a quedar con tamaño = size*/
     }
 
     public int getSize(){
