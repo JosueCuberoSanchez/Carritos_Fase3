@@ -1,6 +1,9 @@
 package ucr.ac.cr.ci1320;
 import ucr.ac.cr.ci1320.TerminalNode.TNController;
 import ucr.ac.cr.ci1320.router.Router;
+import ucr.ac.cr.ci1320.router.Server;
+
+import java.io.DataInputStream;
 
 /**
  * Universidad de Costa Rica
@@ -15,7 +18,7 @@ import ucr.ac.cr.ci1320.router.Router;
 public class Main {
 
     public static void main(String[] args) {
-       // Controller controller = new Controller();
+        // Controller controller = new Controller();
         //controller.start();
 
         //Router router = new Router(3, 1, "10.1.130.141", 7777);
@@ -26,7 +29,7 @@ public class Main {
         //TNController terminalNode = new TNController(1);
         //terminalNode.startTerminalNodes();
 
-        try {
+     /*   try {
             Client client = new Client("client", 5503, "10.1.131.37");
             client.serverOutStream = new DataOutputStream(client.clientSocket.getOutputStream());
             client.serverOutStream.writeUTF("hola");
@@ -37,4 +40,23 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+    Server server = new Server();
+    String newMessage = "";
+            try {
+        server.createSocket("server", 5503, "localhost"); //cambiar por IP real de Dispatcher
+        while (true) {
+            System.out.println("\nServidor de dispatcher  esperando...");
+            server.cs = server.ss.accept();
+            server.outClient = new DataInputStream(server.cs.getInputStream());
+            newMessage = server.outClient.readUTF();
+            System.out.println("Mensaje del dispatcher" + newMessage);
+
+        }
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+    }
+}*/
+    }
 }
+

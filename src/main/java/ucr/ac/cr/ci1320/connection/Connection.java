@@ -19,10 +19,10 @@ import java.net.Socket;
 public class Connection {
     private int PORT;
     private String HOST;
-    protected ServerSocket ss;
-    protected Socket cs;
+    public ServerSocket ss;
+    public Socket cs;
     protected DataOutputStream outServer;
-    protected DataInputStream outClient;
+    public DataInputStream outClient;
 
     public Connection(){}
 

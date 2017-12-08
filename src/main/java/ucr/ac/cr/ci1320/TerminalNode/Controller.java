@@ -46,7 +46,7 @@ public class Controller {
             } else {
                 System.out.println("Waiting.....");
             }
-            Thread readThread = new Thread(new ReadThread(new Server(this.myPort, "localhost", this.nodeDataTable)));
+            Thread readThread = new Thread(new ReadThread(new Server(this.myPort, this.nodeDataTable)));
             readThread.start(); //starts the Read Thread
             readThread.join(); //waits..
         } catch (IOException e) {

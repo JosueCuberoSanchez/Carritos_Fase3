@@ -66,6 +66,7 @@ public class Router implements Runnable{
 
             if(!entry.getKey().contains(".50")) {
                 newInterface = entry.getValue();
+                System.out.println(entry.getKey() + "-" + newInterface.getMyPort());
                 Thread readThread = new Thread(new ReadThread(new Server(this.ARPTable, this.routingTable, this.listSize), newInterface.getMyPort()));
                 readThread.start();
             }

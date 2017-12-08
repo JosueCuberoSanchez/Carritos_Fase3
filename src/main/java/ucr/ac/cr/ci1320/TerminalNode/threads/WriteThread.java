@@ -22,9 +22,8 @@ public class WriteThread implements Runnable{
         this.response = response;
     }
 
-    @Override
     public void run() {
-        this.client.startClient();
+       // this.client.startClient();
         this.client.sendMessage(response[0], response[1]);
     }
 }

@@ -1,6 +1,7 @@
 package ucr.ac.cr.ci1320.TerminalNode;
 
 import ucr.ac.cr.ci1320.TerminalNode.threads.UIThread;
+import ucr.ac.cr.ci1320.connection.Connection;
 
 import java.io.*;
 import java.net.Socket;
@@ -16,19 +17,21 @@ import java.util.*;
  * Brenes Solano Silvia B41133
  * Cubero Sánchez Josué B42190
  */
-public class Server extends ucr.ac.cr.ci1320.TerminalNode.Connection.Connection {
+public class Server extends Connection {
     private HashMap<String, NodeData> nodeDataTable;
     private Client client;
 
-    public Server(int port, String host, HashMap<String, NodeData> nodeDataTable) throws IOException{
-        super("server", port, host);
+    public Server(int port, HashMap<String, NodeData> nodeDataTable) throws IOException{
+        super();
+        super.createSocket("server", port, "localhost");
         this.nodeDataTable = nodeDataTable;
     }
     /*
      * Used with the Dispatcher
      */
     public Server(HashMap<String, NodeData> nodeDataTable) throws IOException {
-        super("server", 6666, "localhost");
+        super();
+        super.createSocket("server", 6666, "localhost");
         this.nodeDataTable = nodeDataTable;
     }
 
@@ -39,10 +42,10 @@ public class Server extends ucr.ac.cr.ci1320.TerminalNode.Connection.Connection 
         try{
             boolean done = false;
             while(done == false) {
-                clientSocket = serverSocket.accept();
-                this.clientOutStream = new DataInputStream(this.clientSocket.getInputStream());
-                String message = this.clientOutStream.readUTF();
-                System.out.println("Received from "+clientSocket.getPort()+":\n"+ Arrays.toString((message.split(",")))+"\n");
+                cs = ss.accept();
+                this.outClient = new DataInputStream(this.cs.getInputStream());
+                String message = this.outClient.readUTF();
+                System.out.println("Received from "+cs.getPort()+":\n"+ Arrays.toString((message.split(",")))+"\n");
                 String[] arrayMessage = message.split(",");
                 String answerMessage = "Se recibe:\n"+arrayMessage[2]+"\nde: "+arrayMessage[0];// 0
                 done = UIThread.showMessage(answerMessage); //calls the method in the User Interface
@@ -59,10 +62,10 @@ public class Server extends ucr.ac.cr.ci1320.TerminalNode.Connection.Connection 
         try {
             while(true) {
                 System.out.println("\nServidor de dispatcher  esperando...");
-                this.clientSocket = this.serverSocket.accept();
+                this.cs = this.ss.accept();
                 System.out.println("Cliente de dispatcher conectado en el servidor");
-                this.clientOutStream = new DataInputStream(this.clientSocket.getInputStream());
-                String newMessage = this.clientOutStream.readUTF();
+                this.outClient = new DataInputStream(this.cs.getInputStream());
+                String newMessage = this.outClient.readUTF();
                 System.out.println(newMessage);
                 this.fillDispatcherTable(newMessage);
                 Iterator iterator = this.nodeDataTable.entrySet().iterator();

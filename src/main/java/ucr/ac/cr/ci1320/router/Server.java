@@ -31,6 +31,7 @@ public class Server extends Connection {
      *
      * @param ARPTable  table with all the interfaces in the router.
      * @param routingTable corresponds to the IP of all networks around.
+     *
      */
 
     public Server(Map<String, Interface> ARPTable, Map<String, String> routingTable,int listSize){
@@ -44,6 +45,9 @@ public class Server extends Connection {
     public Server(Map<String, Interface> ARPTable, Map<String, String> routingTable){
         this.ARPTable = ARPTable;
         this.routingTable = routingTable;
+    }
+
+    public Server(){
     }
 
     /**
@@ -100,7 +104,7 @@ public class Server extends Connection {
      * @param port corresponds to the port where the router is listening for new messages.
      */
     public void startServer(int port){
-        /*PRUEBA*/
+        /*PRUEBA
         for(int i=0;i<3;i++) {
             String message = "HOLA"+String.valueOf(i);
             this.testDS(message);
@@ -111,8 +115,8 @@ public class Server extends Connection {
                 System.out.println(test);
             }
         }
-        /*PRUEBA*/
-        /*String newMessage = "";
+        PRUEBA*/
+        String newMessage = "";
         try {
             super.createSocket("server", port, "localhost"); //cambiar por IP real de Dispatcher
             while (true) {
@@ -121,20 +125,30 @@ public class Server extends Connection {
                 System.out.println("Llega un nuevo mensaje.");
                 this.outClient = new DataInputStream(this.cs.getInputStream());
                 newMessage = this.outClient.readUTF();
-                if(!this.bufferList.isEmpty()) {
-                    this.bufferList.requestBuffer(newMessage,this.bufferQueue);
-                }
+                this.processMessage(newMessage);
+
+                //if(!this.bufferList.isEmpty()) {
+                  //  this.bufferList.requestBuffer(newMessage,this.bufferQueue);
+                //}
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        }*/
+        }
     }
 
-    /*PRUEBA*/
+    /*PRUEBA
     public void testDS(String message){
         if(!this.bufferList.isEmpty()) {
             this.bufferList.requestBuffer(message,this.bufferQueue);
         }
+    }*/
+
+    public void processMessage(String message){
+        String values[] = message.split(",");
+        String internInterface = this.routingTable.get(values[1]);
+        Interface destiny = this.ARPTable.get(internInterface);
+        Client client = new Client();
+        client.client(destiny, values);
     }
 
 

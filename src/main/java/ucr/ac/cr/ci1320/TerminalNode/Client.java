@@ -23,28 +23,28 @@ public class Client extends Connection {
     private HashMap<String, NodeData> nodeDataTable;
 
     public Client(String type, int port, String host) throws IOException {
-        super(type, port, host);
+        super();
     }
 
     public Client(int port, String host, HashMap<String, NodeData> nodeDataTable, String myIp) throws IOException {
-        super("client", port, host);
+        super();
         this.nodeDataTable = nodeDataTable;
         this.myIp = myIp;
     }
 
     public Client (String realIp, int port) throws IOException {
-        super("client", port, realIp);
+        super();
         this.dispatcherPort = port;
     }
 
-    public void startClient(){
+    /*public void startClient(){
         try {
             serverOutStream = new DataOutputStream(clientSocket.getOutputStream());
         }
         catch (Exception e){
             System.out.println(e.getMessage());
         }
-    }
+    }*/
 
     /**
      * Sends the message for the dispatcher
@@ -53,12 +53,14 @@ public class Client extends Connection {
      * @param port real port
      */
     public void dispatcherClient(String myRealIp, String hostNumber, int port) {
-        String newMessage;
-        newMessage = "0" + "\n" + "1" + "\n" + hostNumber + "\n"+ myRealIp + "\n" + port + "\n" ;
         try {
-            this.serverOutStream = new DataOutputStream(this.clientSocket.getOutputStream());
-            this.serverOutStream.writeUTF(newMessage);
-            this.clientSocket.close();
+            String newMessage;
+            newMessage = "0" + "\n" + "1" + "\n" + hostNumber + "\n"+ myRealIp + "\n" + port + "\n" ;
+            super.createSocket("client", 9999, "10.1.130.222"); //Cambiar a IP real
+            this.outServer = new DataOutputStream(this.cs.getOutputStream());
+            System.out.println("El mensaje a enviar es: \n" + Arrays.toString(newMessage.split(","))+"\n");
+            this.outServer.writeUTF(newMessage);
+            this.cs.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,15 +73,25 @@ public class Client extends Connection {
      * @param message mensaje a enviar
      */
     public void sendMessage(String destinyIp, String message){
-        String finalMessage = this.myIp + ',' + destinyIp + ',' + message;
-        sendToClient(finalMessage);
+        try {
+            super.createSocket("client", 9999, "10.1.130.222"); //Cambiar a IP real
+            this.outServer = new DataOutputStream(this.cs.getOutputStream());
+            System.out.println("El mensaje a enviar es: \n" + Arrays.toString(message.split(","))+"\n");
+            this.outServer.writeUTF(message);
+            this.cs.close();
+            String finalMessage = this.myIp + ',' + destinyIp + ',' + message;
+            //sendToClient(finalMessage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
      * Sends the message
      * @param input is the message to be sent
      */
-    public void sendToClient(String input){
+  /*  public void sendToClient(String input){
         System.out.println("El mensaje a enviar es: \n" + Arrays.toString(input.split(","))+"\n");
         try {
             serverOutStream.writeUTF(input);
@@ -87,6 +99,6 @@ public class Client extends Connection {
         catch (IOException e){
             System.out.println(e.getMessage());
         }
-    }
+    }*/
 }
 
