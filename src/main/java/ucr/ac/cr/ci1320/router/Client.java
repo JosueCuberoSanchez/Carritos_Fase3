@@ -29,7 +29,7 @@ public class Client extends Connection {
         String newMessage;
         newMessage = "1" + "\n" + Integer.toString(interfacesQuantity)+ "\n" + Integer.toString(host)+ "\n" +  myRealIp+ "\n" + Integer.toString(port);
         try {
-            super.createSocket("client", 9999, "10.1.130.222"); //Cambiar a IP real
+            super.createSocket("client", 9999, "192.168.0.11"); //Cambiar a IP real
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
             this.outServer.writeUTF(newMessage);
             this.cs.close();
@@ -47,7 +47,7 @@ public class Client extends Connection {
         String newMessage;
         try {
             newMessage = values[1] + destinyInterface.getExternInterface() + values[2];
-            super.createSocket("client", destinyInterface.getPort(), destinyInterface.getExternIp()); //Cambiar a IP real
+            super.createSocket("client", destinyInterface.getExternPort(), destinyInterface.getExternIp()); //Cambiar a IP real
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
             this.outServer.writeUTF(newMessage);
             System.out.println("envie el mensaje");
@@ -55,7 +55,6 @@ public class Client extends Connection {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 

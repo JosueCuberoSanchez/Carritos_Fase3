@@ -1,7 +1,10 @@
 package ucr.ac.cr.ci1320.router;
 import ucr.ac.cr.ci1320.connection.Connection;
+import ucr.ac.cr.ci1320.dataStructures.BufferList;
+import ucr.ac.cr.ci1320.dataStructures.BufferQueue;
+import ucr.ac.cr.ci1320.router.threads.QueueThread;
+
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
 /**
  * Universidad de Costa Rica
@@ -17,18 +20,25 @@ public class Server extends Connection {
 
     private Map<String, Interface> ARPTable;
     private Map<String, String> routingTable;
+    private BufferList bufferList;
+    private BufferQueue bufferQueue;
+    private Thread queueThread;
 
     /**Used when the dispatcher thread starts running.
      *
      * @param ARPTable  table with all the interfaces in the router.
      * @param routingTable corresponds to the IP of all networks around.
      */
-    public Server(Map<String, Interface> ARPTable, Map<String, String> routingTable){
+
+    public Server(Map<String, Interface> ARPTable, Map<String, String> routingTable,int listSize){
         this.ARPTable = ARPTable;
         this.routingTable = routingTable;
+        this.bufferList = new BufferList(listSize);
+        this.bufferQueue = new BufferQueue();
+        this.queueThread = new Thread(new QueueThread(this.bufferList,this.bufferQueue,this.ARPTable,this.routingTable));
     }
 
-    public Server(HashMap<String, Interface> ARPTable, HashMap<String, String> routingTable){
+    public Server(Map<String, Interface> ARPTable, Map<String, String> routingTable){
         this.ARPTable = ARPTable;
         this.routingTable = routingTable;
     }
@@ -63,7 +73,7 @@ public class Server extends Connection {
         Interface newInterface;
         for(int i = 0; i< messageValues.length; i++){
             mapValue = messageValues[i].split(",");
-            newInterface = new Interface(mapValue[1],mapValue[2], Integer.valueOf(mapValue[3]));
+            newInterface = new Interface(mapValue[1],mapValue[2], Integer.valueOf(mapValue[3]),Integer.valueOf(mapValue[4]));
             this.ARPTable.put(mapValue[0], newInterface);
         }
         System.out.println(ARPTable.size() + "arp");
@@ -96,24 +106,13 @@ public class Server extends Connection {
                 System.out.println("Llega un nuevo mensaje.");
                 this.outClient = new DataInputStream(this.cs.getInputStream());
                 newMessage = this.outClient.readUTF();
-                this.processMessage(newMessage);
-
+                if(!this.bufferList.isEmpty()) {
+                    this.bufferList.requestBuffer(newMessage,this.bufferQueue);
+                }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    /**
-     * Processes the new message and send it to its destiny/intermediate.
-     * @param message the message received to process.
-     */
-    public void processMessage(String message){
-        String values[] = message.split(",");
-        String internInterface = this.routingTable.get(values[1]);
-        Interface destiny = this.ARPTable.get(internInterface);
-        Client client = new Client();
-        client.client(destiny, values);
     }
 
 

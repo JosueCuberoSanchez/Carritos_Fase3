@@ -27,15 +27,17 @@ public class Router implements Runnable{
     private Map<String, String> routingTable;
     private String realIp;
     private int dispatcherPort;
+    private int listSize;
 
 
-    public Router(int interfacesQuantity,  int host, String realIp, int dispatcherPort){
+    public Router(int interfacesQuantity,  int host, String realIp, int dispatcherPort, int listSize){
         this.ARPTable = new HashMap<String, Interface>();
         this.routingTable = new HashMap<String, String>();
         this.interfacesQuantity = interfacesQuantity;
         this.hostNumber = host;
         this.realIp = realIp;
         this.dispatcherPort = dispatcherPort;
+        this.listSize = listSize;
     }
 
     public void run(){
@@ -46,36 +48,33 @@ public class Router implements Runnable{
      * Starts the router.
      * @throws IOException
      */
-   public void startController() {
+    public void startController() {
 
-       Thread dispatcherThread = new Thread(new DispatcherThread(new Server(this.ARPTable, this.routingTable), this.dispatcherPort));
-       dispatcherThread.start();
-       this.connectToDispatcher();
+        Thread dispatcherThread = new Thread(new DispatcherThread(new Server(this.ARPTable, this.routingTable), this.dispatcherPort ));
+        dispatcherThread.start();
+        this.connectToDispatcher();
 
-       try {
-           TimeUnit.SECONDS.sleep(5);
-       } catch (InterruptedException e) {
-           e.printStackTrace();
-       }
-
-
-       for (Map.Entry<String, Interface> entry : this.ARPTable.entrySet()) {
-           System.out.println(entry.getKey() + "-" + entry.getValue().getExternInterface() + "/"+ entry.getValue().getExternIp() +"-" +entry.getValue().getPort() );
-       }
-
-       Interface newInterface;
-       for (Map.Entry<String, Interface> entry : this.ARPTable.entrySet()) {
-           newInterface = entry.getValue();
-           Thread readThread = new Thread(new ReadThread(new Server(this.ARPTable, this.routingTable), newInterface.getPort()));
-           readThread.start();
-       }
-   }
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
+        Interface newInterface;
+        for (Map.Entry<String, Interface> entry : this.ARPTable.entrySet()) {
+
+            if(!entry.getKey().contains(".50")) {
+                newInterface = entry.getValue();
+                Thread readThread = new Thread(new ReadThread(new Server(this.ARPTable, this.routingTable, this.listSize), newInterface.getMyPort()));
+                readThread.start();
+            }
+        }
+    }
     /**
      * Starts the communication with the dispatcher.
      */
-   private void connectToDispatcher(){
+    private void connectToDispatcher(){
         Client client = new Client();
         client.dispatcherClient(this.interfacesQuantity, this.hostNumber, this.realIp, this.dispatcherPort);
     }

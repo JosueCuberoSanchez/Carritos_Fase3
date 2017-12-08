@@ -19,6 +19,7 @@ import java.util.HashMap;
 public class DispatcherThread implements Runnable {
     private Server server;
     private int port;
+    private int listSize;
 
 
     public DispatcherThread(Server server, int port){
