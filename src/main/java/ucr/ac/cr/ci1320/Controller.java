@@ -38,8 +38,8 @@ public class Controller {
             if (interfaces == 1) { //es un nodo terminal
 
             } else {
-                Thread thread = new Thread(new Router(interfaces,i, "localhost", 6666));
-                thread.start();
+               // Thread thread = new Thread(new Router(interfaces,i, "localhost", 6666, listSize));
+                //thread.start();
             }
         } //termina for
     }
