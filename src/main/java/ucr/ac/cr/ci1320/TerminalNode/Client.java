@@ -21,6 +21,7 @@ public class Client extends Connection {
     private int dispatcherPort;
     private String myIp;
     private HashMap<String, NodeData> nodeDataTable;
+    private int port;
 
     public Client(String type, int port, String host) throws IOException {
         super();
@@ -30,6 +31,7 @@ public class Client extends Connection {
         super();
         this.nodeDataTable = nodeDataTable;
         this.myIp = myIp;
+        this.port = port;
     }
 
     public Client (String realIp, int port) throws IOException {
@@ -74,7 +76,7 @@ public class Client extends Connection {
      */
     public void sendMessage(String destinyIp, String message){
         try {
-            super.createSocket("client", 9999, "10.1.130.222"); //Cambiar a IP real
+            super.createSocket("client", port, destinyIp); //Cambiar a IP real
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
             System.out.println("El mensaje a enviar es: \n" + Arrays.toString(message.split(","))+"\n");
             this.outServer.writeUTF(message);

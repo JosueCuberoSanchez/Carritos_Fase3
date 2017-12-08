@@ -21,7 +21,7 @@ public class Connection {
     private String HOST;
     public ServerSocket ss;
     public Socket cs;
-    protected DataOutputStream outServer;
+    public DataOutputStream outServer;
     public DataInputStream outClient;
 
     public Connection(){}
