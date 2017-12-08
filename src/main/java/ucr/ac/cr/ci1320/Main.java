@@ -29,7 +29,7 @@ public class Main {
         //TNController terminalNode = new TNController(1);
         //terminalNode.startTerminalNodes();
 
-     /*   try {
+     /*3   try {
             Client client = new Client("client", 5503, "10.1.131.37");
             client.serverOutStream = new DataOutputStream(client.clientSocket.getOutputStream());
             client.serverOutStream.writeUTF("hola");
@@ -39,24 +39,23 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-    Server server = new Server();
-    String newMessage = "";
-            try {
-        server.createSocket("server", 5503, "localhost"); //cambiar por IP real de Dispatcher
-        while (true) {
-            System.out.println("\nServidor de dispatcher  esperando...");
-            server.cs = server.ss.accept();
-            server.outClient = new DataInputStream(server.cs.getInputStream());
-            newMessage = server.outClient.readUTF();
-            System.out.println("Mensaje del dispatcher" + newMessage);
+     /*   Server server = new Server();
+        String newMessage = "";
+        try {
+            server.createSocket("server", 8000, "localhost"); //cambiar por IP real de Dispatcher
+            while (true) {
+                System.out.println("\nServidor de dispatcher  esperando...");
+                server.cs = server.ss.accept();
+                server.outClient = new DataInputStream(server.cs.getInputStream());
+                newMessage = server.outClient.readUTF();
+                System.out.println("Mensaje del dispatcher" + newMessage);
 
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-    } catch (Exception e) {
-        System.out.println(e.getMessage());
-    }
-}*/
     }
 }
 
