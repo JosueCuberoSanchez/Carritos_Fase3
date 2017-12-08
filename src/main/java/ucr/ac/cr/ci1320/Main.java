@@ -33,13 +33,14 @@ public class Main {
         //TNController terminalNode = new TNController(1);
         //terminalNode.startTerminalNodes();
 
-        try {
-            Client client = new Client();
-            client.createSocket("client", 8000, "10.1.131.37"); //Cambiar a IP real
-            client.outServer = new DataOutputStream(client.cs.getOutputStream());
-            //System.out.println("El mensaje a enviar es: \n" + Arrays.toString(newMessage.split(","))+"\n");
-            client.outServer.writeUTF("holi");
-            client.cs.close();
+
+     /*3   try {
+            Client client = new Client("client", 5503, "10.1.131.37");
+            client.serverOutStream = new DataOutputStream(client.clientSocket.getOutputStream());
+            client.serverOutStream.writeUTF("hola");
+            client.clientSocket.close();
+            //  protected DataOutputStream serverOutStream;
+            //protected DataInputStream clientOutStream;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,11 +57,10 @@ public class Main {
             newMessage = server.outClient.readUTF();
             System.out.println("Mensaje del dispatcher" + newMessage);
 
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-    } catch (Exception e) {
-        System.out.println(e.getMessage());
     }
-}*/
-    }
-
+}
 
