@@ -1,7 +1,6 @@
 package ucr.ac.cr.ci1320.TerminalNode;
 
-import javafx.util.Pair;
-import ucr.ac.cr.ci1320.TerminalNode.Connection.ConnectionType;
+import ucr.ac.cr.ci1320.connection.Connection;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -18,14 +17,16 @@ import java.util.HashMap;
  * Brenes Solano Silvia B41133
  * Cubero Sánchez Josué B42190
  */
-public class Client extends ucr.ac.cr.ci1320.TerminalNode.Connection.Connection {
-    private String dispatcherRealIp = "10.1.30.222"; //TODO change to real ip
+public class Client extends Connection {
     private int dispatcherPort;
     private String myIp;
     private HashMap<String, NodeData> nodeDataTable;
 
+    public Client(String type, int port, String host) throws IOException {
+        super(type, port, host);
+    }
 
-    public Client(ConnectionType type, int port, String host, HashMap<String, NodeData> nodeDataTable, String myIp) throws IOException {
+    public Client(int port, String host, HashMap<String, NodeData> nodeDataTable, String myIp) throws IOException {
         super("client", port, host);
         this.nodeDataTable = nodeDataTable;
         this.myIp = myIp;

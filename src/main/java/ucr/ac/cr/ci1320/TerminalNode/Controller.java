@@ -1,6 +1,5 @@
 package ucr.ac.cr.ci1320.TerminalNode;
 
-import ucr.ac.cr.ci1320.TerminalNode.Connection.ConnectionType;
 import ucr.ac.cr.ci1320.TerminalNode.threads.ReadThread;
 import ucr.ac.cr.ci1320.TerminalNode.threads.WriteThread;
 
@@ -41,11 +40,11 @@ public class Controller {
                 NodeData r = nodeDataTable.get(message[0]);
                 port = r.getPort();
                 realIp = r.getRealIp();
-                Thread writeThread = new Thread(new WriteThread(new Client(ConnectionType.CLIENT, port, realIp, this.nodeDataTable, myIp), message));
+                Thread writeThread = new Thread(new WriteThread(new Client(port, realIp, this.nodeDataTable, myIp), message));
                 writeThread.start();
 
             } else {
-                System.out.println("Waiting for new messages.....");
+                System.out.println("Waiting.....");
             }
             Thread readThread = new Thread(new ReadThread(new Server(this.myPort, "localhost", this.nodeDataTable)));
             readThread.start(); //starts the Read Thread

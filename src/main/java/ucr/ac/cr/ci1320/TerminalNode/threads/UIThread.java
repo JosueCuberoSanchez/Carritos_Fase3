@@ -37,7 +37,7 @@ public class UIThread implements Runnable {
             dispatcherThread = new Thread(new DispatcherThread(new Server(this.controller.getNodeDataTable())));
             dispatcherThread.start();
             //TODO CHANGE THE IP DIRECTIONS TO THE REAL ONES!
-            this.controller.connectToDispatcher("10.1.30.222", "10.1.152.70", this.hostNumber);
+            this.controller.connectToDispatcher("10.1.130.222", "10.1.130.69", this.hostNumber);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,19 +55,19 @@ public class UIThread implements Runnable {
                         "Choose an option", "Menu",
                         JOptionPane.QUESTION_MESSAGE, null,
                         ip, ip[0]);
-                if(ip.equals("197.197.197.0")){
+                if(selectedIp.equals("197.197.197.0")){
                     this.values[0] = "197.197.197.0";
                 }
-                else if(ip.equals("192.118.1.0")){
+                else if(selectedIp.equals("192.118.1.0")){
                     this.values[0] = "192.118.1.0";
                 }
-                else if(ip.equals("178.20.2.0")){
+                else if(selectedIp.equals("178.20.2.0")){
                     this.values[0] = "178.20.2.0";
                 }
-                else if(ip.equals("123.7.2.0")){
+                else if(selectedIp.equals("123.7.2.0")){
                     this.values[0] = "123.7.2.0";
                 }
-                else if(ip.equals("10.4.2.0")){
+                else if(selectedIp.equals("10.4.2.0")){
                     this.values[0] = "10.4.2.0";
                 }
                 this.values[1] = JOptionPane.showInputDialog(
