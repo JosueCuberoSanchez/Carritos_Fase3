@@ -40,7 +40,11 @@ public class Controller {
                 NodeData r = nodeDataTable.get(message[0]);
                 port = r.getPort();
                 realIp = r.getRealIp();
-                Thread writeThread = new Thread(new WriteThread(new Client(port, realIp, this.nodeDataTable, myIp), message));
+
+                String [] newMessage = new String[2];
+                newMessage[0] = realIp;
+                newMessage[1] = message[1];
+                Thread writeThread = new Thread(new WriteThread(new Client(port, realIp, this.nodeDataTable, myIp), newMessage));
                 writeThread.start();
 
             } else {

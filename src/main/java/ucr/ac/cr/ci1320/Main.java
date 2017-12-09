@@ -30,21 +30,22 @@ public class Main {
         //Router router = new Router(3, 1, "127.0.0.1", 7777);
         //router.startController();
 
-        //TNController terminalNode = new TNController(1);
-        //terminalNode.startTerminalNodes();
+        TNController terminalNode = new TNController(1);
+        terminalNode.startTerminalNodes();
 
-
-     /*3   try {
-            Client client = new Client("client", 5503, "10.1.131.37");
-            client.serverOutStream = new DataOutputStream(client.clientSocket.getOutputStream());
-            client.serverOutStream.writeUTF("hola");
-            client.clientSocket.close();
+/*
+        try {
+            Client client = new Client();
+            client.createSocket("client", 5503, "10.1.232.156");
+            client.outServer = new DataOutputStream(client.cs.getOutputStream());
+            client.outServer.writeUTF("hola");
+            client.cs.close();
             //  protected DataOutputStream serverOutStream;
             //protected DataInputStream clientOutStream;
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
+        }*/
+
     /*
     Server server = new Server();
     String newMessage = "";
@@ -61,6 +62,7 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }*/
     }
 }
 
