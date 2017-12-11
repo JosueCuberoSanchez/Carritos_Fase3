@@ -130,9 +130,9 @@ public class Server extends Connection {
             while (true) {
                 System.out.println("\nServidor general esperando...");
                 this.cs = this.ss.accept();
-                System.out.println("Llega un nuevo mensaje.");
                 this.outClient = new DataInputStream(this.cs.getInputStream());
                 newMessage = this.outClient.readUTF();
+                System.out.println("Llega un nuevo mensaje. "+newMessage);
                 this.processMessage(newMessage);
 
                 //if(!this.bufferList.isEmpty()) {
@@ -155,9 +155,12 @@ public class Server extends Connection {
         String values[] = message.split(",");
         String internInterface = this.routingTable.get(values[1]);
         Interface destiny = this.ARPTable.get(internInterface);
+        System.out.println("intern interface " + internInterface + "destiny " +destiny);
         Client client = new Client();
         client.client(destiny, values);
     }
+
+
 
 
 }

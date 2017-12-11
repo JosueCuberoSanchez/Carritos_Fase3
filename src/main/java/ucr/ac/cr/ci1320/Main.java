@@ -27,12 +27,12 @@ public class Main {
 
         //Router router = new Router(3, 1, "10.1.130.141", 7777);
         //router.startController();
-        //Router router = new Router(3, 1, "127.0.0.1", 7777);
-        //router.startController();
-        String dispatcherIp = "";
+        Router router = new Router(3, 1, "10.1.131.82", 7777,10);
+        router.startController();
+        /*String dispatcherIp = "";
         String myRealIp = "";
         TNController terminalNode = new TNController(dispatcherIp, myRealIp);
-        terminalNode.startTerminalNodes();
+        terminalNode.startTerminalNodes();*/
 
         /*try {
             Client client = new Client("client", 5503, "10.1.131.37");
