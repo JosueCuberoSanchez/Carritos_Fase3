@@ -17,6 +17,10 @@ public class BufferQueue {
         this.startBuffer = null;
     }
 
+    /**
+     * Returns true if queue is empty, false otherwise.
+     * @return true if queue is empty, false otherwise
+     */
     public boolean isEmpty(){
         if(this.startBuffer != null){
             return false;
@@ -25,14 +29,10 @@ public class BufferQueue {
         }
     }
 
-    public void printList(){
-        Buffer temporal = this.startBuffer;
-        while(temporal != null){
-            System.out.println(temporal.getMessage());
-            temporal = temporal.getNextBuffer();
-        }
-    }
-
+    /**
+     * Adds a new buffer to the queue.
+     * @param buffer the new buffer to be added.
+     */
     public void addBuffer(Buffer buffer){
         Buffer newBuffer = new Buffer(buffer.getMessage());
         if(this.startBuffer == null){ //si es el primero
@@ -46,6 +46,11 @@ public class BufferQueue {
         }
     }
 
+    /**
+     * Gets the next buffer to be processed.
+     * @param bufferList the buffer list to be given a node after queue process the message.
+     * @return the buffered message.
+     */
     public String getNextBufferedMessage(BufferList bufferList){ //falta agregar el nodo a la lista
         String message = null;
         if(this.startBuffer != null) {
