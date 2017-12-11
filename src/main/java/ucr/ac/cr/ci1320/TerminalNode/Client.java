@@ -65,15 +65,16 @@ public class Client extends Connection {
      * @param destinyIp to send the message
      * @param message to send
      */
-    public void sendMessage(String destinyIp, String message){
+    public void sendMessage(String destinyIp, String message, String realIp){
         try {
             System.out.println("DESTINY IP " + destinyIp + " PORT " + port);
-            super.createSocket("client", port, destinyIp); //Cambiar a IP real
+            super.createSocket("client", port, realIp); //Cambiar a IP real
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
-            System.out.println("El mensaje a enviar es: \n" + Arrays.toString(message.split(","))+"\n");
-            this.outServer.writeUTF(message);
-            this.cs.close();
             String finalMessage = this.myIp + ',' + destinyIp + ',' + message;
+            System.out.println("El mensaje a enviar es: \n" + Arrays.toString(finalMessage.split(","))+"\n");
+            this.outServer.writeUTF(finalMessage);
+            this.cs.close();
+
             //sendToClient(finalMessage);
 
         } catch (IOException e) {

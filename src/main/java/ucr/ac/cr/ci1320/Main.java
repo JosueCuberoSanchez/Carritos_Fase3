@@ -29,8 +29,8 @@ public class Main {
         //router.startController();
         //Router router = new Router(3, 1, "127.0.0.1", 7777);
         //router.startController();
-        String dispatcherIp = "";
-        String myRealIp = "";
+        String dispatcherIp = "10.1.130.222";
+        String myRealIp = "10.1.130.69";
         TNController terminalNode = new TNController(dispatcherIp, myRealIp);
         terminalNode.startTerminalNodes();
 

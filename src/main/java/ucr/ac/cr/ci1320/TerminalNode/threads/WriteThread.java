@@ -29,7 +29,7 @@ public class WriteThread implements Runnable{
 
     public void run() {
        // this.client.startClient();
-        this.client.sendMessage(response[0], response[1]);
+        this.client.sendMessage(response[0], response[1], response[2]);
     }
 }
 

@@ -27,7 +27,7 @@ public class TNController {
 
     public void startTerminalNodes(){
         //for (int i = 0; i < this.numberofNodes; i++) {
-            Thread uIThread = new Thread(new UIThread(new Controller("123.7.2.50",4),String.valueOf(4),dispatcherIp, myRealIp));
+            Thread uIThread = new Thread(new UIThread(new Controller("123.7.2.50",9004),String.valueOf(4),dispatcherIp, myRealIp));
             uIThread.run();
         //}
     }
