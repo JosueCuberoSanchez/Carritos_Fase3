@@ -34,19 +34,18 @@ public class Controller {
      */
     public void startController(String[] message) { //destiny ip , message
         try {
-            if (!message[0].equalsIgnoreCase("connect")) {
+            if (!message[0].equalsIgnoreCase("connect")) { //the user wants to send a message
                 int port;
                 String realIp;
-                NodeData r = nodeDataTable.get(message[0]);
-                port = r.getPort();
-                realIp = r.getRealIp();
+                NodeData r = nodeDataTable.get(message[0]); //table with the ips
+                port = r.getPort(); //gets the port to send the message
+                realIp = r.getRealIp(); //gets the realIp
 
                 String [] newMessage = new String[2];
                 newMessage[0] = realIp;
-                newMessage[1] = message[1];
+                newMessage[1] = message[1]; //message
                 Thread writeThread = new Thread(new WriteThread(new Client(port, realIp, this.nodeDataTable, myIp), newMessage));
-                writeThread.start();
-
+                writeThread.start(); //starts the write thread
             } else {
                 System.out.println("Waiting.....");
             }
@@ -61,7 +60,7 @@ public class Controller {
     }
 
     /**
-     * Create the connection with the Dispatcher
+     * Creates the connection with the Dispatcher
      * @param DispatcherRealIp is the real Ip from the Dispatcher
      * @param myRealIp my real Ip address
      */
@@ -75,7 +74,7 @@ public class Controller {
     }
 
     /**
-     * Returns the table with the physical addresses of the routers
+     * Returns the table with the ip addresses and ports
      * @return the physical table
      */
     public HashMap<String, NodeData> getNodeDataTable() {

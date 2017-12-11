@@ -17,6 +17,11 @@ public class WriteThread implements Runnable{
     private Client client;
     private String[] response;
 
+    /**
+     * Creates the write thread
+     * @param client
+     * @param response array that contains the destiny ip and the message
+     */
     public WriteThread(Client client, String[] response){
         this.client = client;
         this.response = response;

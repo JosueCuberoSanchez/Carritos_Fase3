@@ -26,8 +26,11 @@ public class Server extends Connection {
         super.createSocket("server", port, "localhost");
         this.nodeDataTable = nodeDataTable;
     }
-    /*
-     * Used with the Dispatcher
+
+    /**
+     * Server used with the dispatcher
+     * @param nodeDataTable that has the ip addresses, path and ports
+     * @throws IOException
      */
     public Server(HashMap<String, NodeData> nodeDataTable) throws IOException {
         super();
@@ -36,7 +39,7 @@ public class Server extends Connection {
     }
 
     /**
-     *  Receives the answer from the router and sends the final message with action 0
+     *  Starts the server and receives the message
      */
     public void startServer(){
         try{
@@ -81,18 +84,11 @@ public class Server extends Connection {
     }
 
     /**
-     * Fills the table with the physical addresses of the routers sent by the Dispatcher
+     * Fills the table with the ip addresses, path and ports
      * @param message to send
      */
     public void fillDispatcherTable(String message){
         String[] megaData = message.split("\n");
-
-/*        for (int i = 0; i < megaData.length; i++){
-            String[] datas = megaData[i].split(","); //destiny + path + realIp + port
-            NodeData nodeData = new NodeData(datas[1], datas[2], Integer.valueOf(datas[3]));
-            this.nodeDataTable.put(datas[0], nodeData); //add 1st direction
-        }*/
-
 
         String[] datas = megaData[0].split(","); //destiny + path + realIp + port
         NodeData nodeData = new NodeData(datas[1], datas[2], Integer.valueOf(datas[3]));

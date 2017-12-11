@@ -1,9 +1,9 @@
 package ucr.ac.cr.ci1320.TerminalNode;
 
 public class NodeData {
-    private String path;
-    private String realIp;
-    private int port;
+    private String path; //ip address of the interface
+    private String realIp; //real ip address
+    private int port; //real port
 
     public NodeData(String path, String realIp, int port){
         this.path = path;
@@ -15,9 +15,7 @@ public class NodeData {
 
     public void setPath(String path) {this.path = path;}
 
-    public String getRealIp() {
-        return realIp;
-    }
+    public String getRealIp() {return realIp;}
 
     public int getPort() {
         return port;

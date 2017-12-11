@@ -39,15 +39,6 @@ public class Client extends Connection {
         this.dispatcherPort = port;
     }
 
-    /*public void startClient(){
-        try {
-            serverOutStream = new DataOutputStream(clientSocket.getOutputStream());
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-    }*/
-
     /**
      * Sends the message for the dispatcher
      * @param myRealIp my ip address
@@ -71,8 +62,8 @@ public class Client extends Connection {
     /**
      * In case the destiny ip is outside the network a message will be sent to
      * both routers with the action 2.
-     * @param destinyIp direccion del destino a la cual se envia el mensaje
-     * @param message mensaje a enviar
+     * @param destinyIp to send the message
+     * @param message to send
      */
     public void sendMessage(String destinyIp, String message){
         try {
@@ -90,19 +81,5 @@ public class Client extends Connection {
         }
 
     }
-
-    /**
-     * Sends the message
-     * @param input is the message to be sent
-     */
-  /*  public void sendToClient(String input){
-        System.out.println("El mensaje a enviar es: \n" + Arrays.toString(input.split(","))+"\n");
-        try {
-            serverOutStream.writeUTF(input);
-        }
-        catch (IOException e){
-            System.out.println(e.getMessage());
-        }
-    }*/
 }
 

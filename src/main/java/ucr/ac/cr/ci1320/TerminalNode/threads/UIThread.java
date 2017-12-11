@@ -6,21 +6,31 @@ import javax.swing.*;
 import java.io.IOException;
 
 /**
- * Created by Mariana on 07/12/2017.
+ * Universidad de Costa Rica
+ * Facultad de Ingeniería
+ * Escuela de Ciencias de la Computación e Informática
+ * Profesora: Gabriela Barrantes
+ * Autores:
+ * Abellán Jiménez Mariana B50031
+ * Brenes Solano Silvia B41133
+ * Cubero Sánchez Josué B42190
  */
 public class UIThread implements Runnable {
     private Controller controller;
     private String[] values;
     private String hostNumber;
+    private String dispatcherIp, myIp;
 
-    public UIThread(Controller controller, String hostNumber) {
+    public UIThread(Controller controller, String hostNumber, String dispatcherIp, String myIp) {
         this.controller = controller;
         this.values = new String[2];
         this.hostNumber = hostNumber;
+        this.dispatcherIp = dispatcherIp;
+        this.myIp = myIp;
     }
 
     /**
-     * Start the user interface
+     * Starts the user interface
      */
     public void run() {
         this.userInterface();
@@ -37,7 +47,7 @@ public class UIThread implements Runnable {
             dispatcherThread = new Thread(new DispatcherThread(new Server(this.controller.getNodeDataTable())));
             dispatcherThread.start();
             //TODO CHANGE THE IP DIRECTIONS TO THE REAL ONES!
-            this.controller.connectToDispatcher("10.1.130.222", "10.1.131.37", this.hostNumber);
+            this.controller.connectToDispatcher(dispatcherIp, myIp, this.hostNumber);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,7 +60,7 @@ public class UIThread implements Runnable {
                 posibleValues, posibleValues[0]);;
         while (!selectedValue.equals("Exit")){                             //if the selected value is not exit:
             if (selectedValue.equals("Send a message")) {                  //the user must write the message and direction to send the message
-                Object[] ip = {"197.197.197.0", "192.118.1.0", "178.20.2.0", "123.7.2.0", "10.4.2.0"};
+                Object[] ip = {"197.197.197.0", "192.118.1.0", "178.20.2.0", "123.7.2.0", "10.4.2.0"}; //dropdown menu to choose the destiny ip
                 Object selectedIp = JOptionPane.showInputDialog(null, // choose between send message, connect to the network, exit
                         "Choose an option", "Menu",
                         JOptionPane.QUESTION_MESSAGE, null,
@@ -72,7 +82,7 @@ public class UIThread implements Runnable {
                 }
                 this.values[1] = JOptionPane.showInputDialog(
                         "Write the message");
-            }else if (selectedValue.equals("Connect to network")) {       //if the user want to connect to the network:
+            }else if (selectedValue.equals("Connect to network")) {       //if the user want to connect to the network and receive messages:
                 this.values[0] = "connect";
             }
             this.controller.startController(this.values);                    //starts the controller

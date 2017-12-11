@@ -5,6 +5,10 @@ import ucr.ac.cr.ci1320.TerminalNode.Server;
 public class ReadThread implements Runnable{
     private Server server;
 
+    /**
+     * Creates the read thread
+     * @param server
+     */
     public ReadThread(Server server){
         this.server = server;
     }
