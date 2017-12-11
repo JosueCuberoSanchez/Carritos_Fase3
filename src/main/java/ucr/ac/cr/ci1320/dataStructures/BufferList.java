@@ -15,6 +15,10 @@ package ucr.ac.cr.ci1320.dataStructures;
 public class BufferList {
     private Buffer startBuffer;
 
+    /**
+     * Constructs a list with size nodes.
+     * @param size the desired quantity of nodes(buffers).
+     */
     public BufferList(int size){
         this.startBuffer = new Buffer(String.valueOf(1)); //inicia el primer buffer
         Buffer temporal = this.startBuffer; //buffer temporal para iterar
@@ -26,6 +30,10 @@ public class BufferList {
         }
     }
 
+    /**
+     * Returns true if list is empty, false otherwise.
+     * @return
+     */
     public boolean isEmpty(){
         if(this.startBuffer != null){
             return false;
@@ -34,14 +42,11 @@ public class BufferList {
         }
     }
 
-    public void printList(){
-        Buffer temporal = this.startBuffer;
-        while(temporal != null){
-            System.out.println(temporal.getMessage());
-            temporal = temporal.getNextBuffer();
-        }
-    }
-
+    /**
+     * Request a buffer for a message, if no buffer is available message is lost, if there are buffers available, store it and send buffer to queue.
+     * @param message the message.
+     * @param bufferQueue the buffer queue.
+     */
     public void requestBuffer(String message,BufferQueue bufferQueue){
         if(!this.startBuffer.isTaken()){ //si es el primero
             this.startBuffer.setMessage(message);
@@ -68,6 +73,11 @@ public class BufferList {
         }
     }
 
+
+    /**
+     * Returns the size of the list
+     * @return the size of the list
+     */
     public int getSize(){
         Buffer temporal = this.startBuffer;
         int size = 1;
@@ -78,6 +88,10 @@ public class BufferList {
         return size;
     }
 
+    /**
+     * Adds a node back to the list after the queue process a message.
+     * @param newBuffer the new buffer to be added.
+     */
     public void addNode(Buffer newBuffer){
         Buffer buffer = this.startBuffer;
         while(buffer.getNextBuffer() != null){

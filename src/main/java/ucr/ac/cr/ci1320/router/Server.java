@@ -74,6 +74,10 @@ public class Server extends Connection {
         }
     }
 
+    /**
+     * Fills the ARP table with the message given by the dispatcher
+     * @param message the table in String format
+     */
     public void fillARPTable(String message){
         String messageValues[] = message.split("\n");
         String mapValue[];
@@ -87,6 +91,10 @@ public class Server extends Connection {
 
     }
 
+    /**
+     * Fills the routing table with the message given by the dispatcher
+     * @param message the table in String format
+     */
     public void fillRoutingTable(String message){
         String messageValues[] = message.split("\n");
         String mapValue[];

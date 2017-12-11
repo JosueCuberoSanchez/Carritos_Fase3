@@ -37,6 +37,10 @@ public class Buffer {
         this.nextBuffer = nextBuffer;
     }
 
+    /**
+     * If buffer is not taken, take it but return false so Thread can pass the if statement. If its taken return that is taken.
+     * @return the isTaken state.
+     */
     public synchronized boolean isTaken() {
         boolean temporal = this.isTaken;
         if(!this.isTaken){

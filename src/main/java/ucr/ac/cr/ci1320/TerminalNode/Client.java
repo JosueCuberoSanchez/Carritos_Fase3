@@ -23,7 +23,7 @@ public class Client extends Connection {
     private HashMap<String, NodeData> nodeDataTable;
     private int port;
 
-    public Client(String type, int port, String host) throws IOException {
+    public Client() throws IOException {
         super();
     }
 
