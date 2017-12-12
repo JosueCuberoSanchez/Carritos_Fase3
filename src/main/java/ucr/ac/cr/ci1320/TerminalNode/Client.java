@@ -71,9 +71,11 @@ public class Client extends Connection {
             super.createSocket("client", port, realIp); //Cambiar a IP real
             this.outServer = new DataOutputStream(this.cs.getOutputStream());
             String finalMessage = this.myIp + ',' + destinyIp + ',' + message;
-            System.out.println("El mensaje a enviar es: \n" + Arrays.toString(finalMessage.split(","))+"\n");
-            this.outServer.writeUTF(finalMessage);
-            this.cs.close();
+            while(true) {
+                System.out.println("El mensaje a enviar es: \n" + Arrays.toString(finalMessage.split(",")) + "\n" + "a la direccion " + realIp + "al puerto: " + port);
+                this.outServer.writeUTF(finalMessage);
+            }
+            //this.cs.close();
 
             //sendToClient(finalMessage);
 
